@@ -7,8 +7,8 @@ signupForm.addEventListener('submit', (e) => {
     const email = document.querySelector('#signup-email').value
     const password = document.querySelector('#signup-password').value
     
-    emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@((amigo.edu.co))/;
 
+    emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@((amigo.edu.co))/;
     if (emailRegex.test(email)) {
         auth
             .createUserWithEmailAndPassword(email, password)
@@ -19,10 +19,10 @@ signupForm.addEventListener('submit', (e) => {
                 console.log('signup');
             })
        console.log('amigo.edu.co');
+       
       } else {
         console.log('incorrecto');
       }
-
 });
 
 //SignIn
@@ -38,6 +38,8 @@ signinForm.addEventListener('submit', e =>{
         .signInWithEmailAndPassword(email, password)
         .then(userCredential => {
             signupForm.reset();
+            const user = userCredential.user;
+            console.log(user);
             //cerrar el modal
             $('#signupModal').modal('hide');
             console.log('signIn');
