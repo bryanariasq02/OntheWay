@@ -1,3 +1,10 @@
+:root {
+  --bg: #110921;
+  --purple: rgb(39, 40, 56);
+  --green: #ccff00;
+  --font: 'Roboto Mono', sans-serif;
+}
+
 .container {
   max-width: 960px;
 }
@@ -54,6 +61,42 @@
   background-color: #e5e5e5;
 }
 
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 40px;
+  background-color: var(--purple);
+  border-radius: 40px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.switch:after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  background-color: white;
+  top: 5px;
+  left: 5px;
+  transition: all 0.3s;
+}
+
+input[type='checkbox']:checked + .switch:after {
+  transform: translateX(40px);
+  background-color: var(--bg);
+}
+
+input[type='checkbox']:checked + .switch {
+  background-color: var(--green);
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
 
 /*
  * Extra utilities
