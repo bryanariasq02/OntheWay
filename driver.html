@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>OnTheWay</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/product/">
+
+  <!-- Bootstrap core CSS
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+-->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+ 
+ <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Nav (Barra de navegación)-->
+  <header class="site-header sticky-top py-1">
+    <nav
+      class="navbar navbar-expand-lg navbar-light container">
+      <a class="navbar-brand" href="#">
+        <h3>OnTheWay</h3>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="#">
+            <h5>Inicio</h5>
+          </a>
+          <a class="nav-item nav-link" href="#">
+            <h5>Pasajero</h5>
+          </a>
+          <a class="nav-item nav-link active" href="#">
+            <h5>Conductor</h5>
+          </a>
+          <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#signinModal" >
+            <h5>Iniciar sesión</h5>
+          </a>
+          <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#signupModal">
+            <h5>Resgistrate</h5>
+          <a class="nav-item nav-link" href="#" id="logout">
+            <h5>Logout</h5>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+      <div class="me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden" style="background-color: #ccff00;">
+        <div class="my-3 p-3" >
+          <h2 class="display-5">Para empezar tu viaje llena el siguiente formulario.</i></h2>
+          <p class="lead">Coincide con personas que compartan tu misma ruta.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+      <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+        <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+            <form style="color: aliceblue;">
+                <div class="col-md-6 offset-md-3" >
+                    <br>
+                    <input type="Start1" class="form-control" id="Start2" aria-describedby="emailHelp" placeholder="¿Donde empieza tu viaje?">
+                </div>
+                <br>
+                <div class="col-md-6 offset-md-3">
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="¿Donde termina tu viaje?">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modals (Ventana Emergente para SignUp)-->
+
+  <div class="modal" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Registrate</h5>
+        </div>
+        <div class="modal-body">
+          <form id="signup-form" action="">
+            <div class="form-group mb-3">
+              <input type="text" id="signup-email" class="form-control" placeholder="Email" required autofocus>
+            </div>
+            <div class="form-group mb-3">
+              <input type="password" id="signup-password" class="form-control" placeholder="Password" required>
+            </div>
+            <div class="d-grid gap-2 d-md-block">
+              <button type="submit" class="btn btn-outline-primary btn-block" style="color: black; background-color: #ccff00; border: black;">Registrarse</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals (Ventana Emergente para SignIn)-->
+
+  <div class="modal" id="signinModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Iniciar sesión</h5>
+        </div>
+        <div class="modal-body">
+          <form id="login-form" action="">
+            <div class="form-group mb-3">
+              <input type="text" id="login-email" class="form-control" placeholder="Email" autofocus required>
+            </div>
+            <div class="form-group mb-3">
+              <input type="password" id="login-password" class="form-control" placeholder="Password" required>
+            </div>
+            <div class="d-grid gap-2 d-md-block">
+              <button type="submit" class="btn btn-outline-primary btn-block" style="color: black; background-color: #ccff00; border: black;">Login</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="container py-5">
+    <div style="text-align: center;" class="">
+      <h5>About</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="link-secondary" href="#">Team</a></li>
+        <li><a class="link-secondary" href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div style="text-align: center;" class="row">
+      <div class="col-12 col-md">
+        <small class="d-block mb-3 text-muted">&copy; 2022</small>
+      </div>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="js/jquery.slim.min.js"></script>
+  <script type="text/javascript" src="js/tether.min.js"></script>
+
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    
+   <script>
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyALyNwAbNMn9y_FyKBMd9tANnHclyUGSek",
+      authDomain: "ontheway-85dd5.firebaseapp.com",
+      projectId: "ontheway-85dd5",
+      storageBucket: "ontheway-85dd5.appspot.com",
+      messagingSenderId: "473452703765",
+      appId: "1:473452703765:web:315ec5e4a1e29005c45e1c"
+    };
+  
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+  </script>
+
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
