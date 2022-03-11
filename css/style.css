@@ -110,3 +110,10 @@ input[type='checkbox']:checked + .switch {
     flex: 1;
   }
 }
+
+#registro {
+    border: #110921;
+    border-radius: 10px;
+    color:#110921;
+    width: 50%;
+}
