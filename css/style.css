@@ -117,3 +117,8 @@ input[type='checkbox']:checked + .switch {
     color:#110921;
     width: 50%;
 }
+#form_register {
+  color:#110921;
+  height:auto;
+  border-radius: 10px;
+}
