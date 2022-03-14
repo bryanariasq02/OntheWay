@@ -110,3 +110,15 @@ input[type='checkbox']:checked + .switch {
     flex: 1;
   }
 }
+
+#registro {
+    border: #110921;
+    border-radius: 10px;
+    color:#110921;
+    width: 50%;
+}
+#form_register {
+  color:#110921;
+  height:auto;
+  border-radius: 10px;
+}
