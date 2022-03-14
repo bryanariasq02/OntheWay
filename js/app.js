@@ -34,10 +34,10 @@ signupForm.addEventListener('submit', (e) => {
         console.log('amigo.edu.co');
         console.log(rol);
         if (rol == "Pasajero"){
-            window.location.href = 'https://bryanariasq02.github.io/OntheWay/driver.html';
+            window.location.href = 'https://bryanariasq02.github.io/OntheWay/traveler.html';
         }
         else{
-            window.location.href = 'https://bryanariasq02.github.io/OntheWay/traveler.html';
+            window.location.href = 'https://bryanariasq02.github.io/OntheWay/driver.html';
         }
       } else {
         console.log('incorrecto');
