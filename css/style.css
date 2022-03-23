@@ -26,6 +26,16 @@
   text-decoration: none;
 }
 
+.lead1{
+  color: #007b99;
+}
+
+.container-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 /*
  * Dummy devices (replace them with your own or something else entirely!)
