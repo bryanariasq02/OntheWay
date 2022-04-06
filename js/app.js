@@ -1,5 +1,20 @@
 console.log('hello');
 
+const dentrolinks = document.querySelectorAll('.dentro')
+const fueralinks = document.querySelectorAll('.fuera')
+
+//login Check
+const loginCheck = user => {
+    if(user){
+        dentrolinks.forEach(link => link.style.display = 'block');
+        fueralinks.forEach(link => link.style.display = 'none');
+    }else{
+        dentrolinks.forEach(link => link.style.display = 'none');
+        fueralinks.forEach(link => link.style.display = 'block');
+    }
+}
+
+
 async function registrarUsuario(email, password, rol) {
     const infoUsuario = await auth.createUserWithEmailAndPassword(
       email,
@@ -34,10 +49,10 @@ signupForm.addEventListener('submit', (e) => {
         console.log('amigo.edu.co');
         console.log(rol);
         if (rol == "Pasajero"){
-            window.location.href = 'https://bryanariasq02.github.io/OntheWay/traveler.html';
+            window.location.href = './traveler.html';
         }
         else{
-            window.location.href = 'https://bryanariasq02.github.io/OntheWay/driver.html';
+            window.location.href = './driver.html';
         }
       } else {
         console.log('incorrecto');
@@ -59,6 +74,7 @@ signinForm.addEventListener('submit', e =>{
             signupForm.reset();
             const user = userCredential.user;
             console.log(user);
+            window.location.href = './traveler.html'
             //cerrar el modal
             $('#signupModal').modal('hide');
             console.log('signIn');
@@ -67,25 +83,39 @@ signinForm.addEventListener('submit', e =>{
 
 //SignIn With GOOGLE
 
-const signinFor = document.querySelector('#login-form');
+const googlebutton = document.querySelector('#googleLogin');
 
-signinForm.addEventListener('submit', e =>{
-    e.preventDefault();
-    const email = document.querySelector('#login-email').value
-    const password = document.querySelector('#login-password').value
-    
-    auth
-        .signInWithEmailAndPassword(email, password)
-        .then(userCredential => {
-            signupForm.reset();
-            const user = userCredential.user;
-            console.log(user);
-            //cerrar el modal
-            $('#signupModal').modal('hide');
-            console.log('signIn');
-        }) 
-});
+// googlebutton.addEventListener('click', e =>{
+//     e.preventDefault();
 
+//     const provider = new firebase.auth.GoogleAuthProvider();
+//     auth.signInWithPopup(provider)
+//         .then(resul => {
+//             console.log("entrooo")
+//             window.location.href = './traveler.html'
+
+//         })
+//         .catch(err => {
+//             console.log(err)
+//         })
+
+    // const email = document.querySelector('#login-email').value
+    // const password = document.querySelector('#login-password').value
+    console.log("googleeee")
+    // auth
+    //     .signInWithEmailAndPassword(email, password)
+    //     .then(userCredential => {
+    //         signupForm.reset();
+    //         const user = userCredential.user;
+    //         console.log(user);
+
+    //         //cerrar el modal
+    //         $('#signupModal').modal('hide');
+    //         console.log('signIn');
+    //     }) 
+//});
+
+//LOGOUT
 const logout = document.querySelector('#logout');
 
 logout.addEventListener('click', e =>{
@@ -93,6 +123,51 @@ logout.addEventListener('click', e =>{
 
     auth.signOut().then(() => {
         console.log('sign Out');
-        window.location.href = 'https://bryanariasq02.github.io/OntheWay';
+        window.location.href = './index.html';
     })
 });
+
+
+//Viajes disponibles
+
+const listaViajes = document.querySelector('.viajesDisponibles')
+
+const setupViajes = data =>{
+    if(data.length) {
+        let html = '';
+        data.forEach(doc => {
+            const viajes = doc.data()
+            console.log(viajes)
+            const li = `
+            <li class="list-group-item list-group-item-action">
+                <h5>${viajes.origen}</h5>
+                <p>${viajes.destino}</p>
+            </li>            
+            `;
+            html += li;
+        });
+        listaViajes.innerHTML = html;
+    }else{
+        listaViajes.innerHTML = `<p class="text-center">Inicia sesion para ver viajes disponibles</p>`
+    }
+}
+
+//Eventos
+//Listar datos para usuarios autenticados
+
+auth.onAuthStateChanged(user => {
+    if(user){
+        loginCheck(user)
+        console.log("iniciado")
+        fs.collection('viajesDisponibles')
+            .get()
+            .then((snapshot) => {
+                console.log(snapshot.docs)
+                setupViajes(snapshot.docs)
+            })
+    }else{
+        setupViajes([])
+        console.log("NADA")
+        loginCheck(user)
+    }
+})
