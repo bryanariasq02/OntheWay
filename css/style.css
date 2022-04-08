@@ -123,7 +123,7 @@ input[type='checkbox']:checked + .switch {
 
 #registro {
     border: #110921;
-    border-radius: 10px;
+    border-radius: 100px;
     color:#110921;
     width: 50%;
 }
@@ -131,4 +131,13 @@ input[type='checkbox']:checked + .switch {
   color:#110921;
   height:auto;
   border-radius: 10px;
+}
+
+.form-control{
+  border-radius: 10px;
+}
+
+#registrarviaje{
+  color: black;
+  border-radius: 50px;
 }
