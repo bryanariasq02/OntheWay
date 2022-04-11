@@ -15,16 +15,34 @@ const loginCheck = user => {
 }
 
 
-async function registrarUsuario(email, password, rol) {
+async function registrarUsuario(email, password, name, rol) {
     const infoUsuario = await auth.createUserWithEmailAndPassword(
       email,
       password
     ).then((usuarioFirebase) => {
-      return usuarioFirebase;
+        var user = firebase.auth().currentUser;
+        user.updateProfile({
+         displayName: name
+        }).then(function() {
+            // Update successful.
+        }, function(error) {
+            // An error happened.
+        });
+        //console.log(infoUsuario.user);
+        console.log(usuarioFirebase);
+        console.log("INFORMACIONNNNNNNNNNN")
+        
     });
-    console.log(infoUsuario.user.uid);
-    console.log(infoUsuario);
     
+    function verificar() {
+        var user = firebase.auth().currentUser;
+        user.sendEmailVerification().then(function () {
+            console.log("// Email sent.");
+        }).catch(function (error) {
+            // An error happened.
+        });
+    };
+    verificar();
     //const docuRef = fs.doc(fs, 'usuarios/${infoUsuario.user.uid}');
     //fs.setDoc(docuRef, {correo: email, rol: rol});
 }
@@ -33,6 +51,8 @@ const signupForm = document.querySelector('#signup-form');
 
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    const name = document.querySelector('#signup-name').value;
+    const lastName = document.querySelector('#signup-lastName').value;
     const email = document.querySelector('#signup-email').value;
     const password = document.querySelector('#signup-password').value;
     const check = document.getElementById('toggle');
@@ -43,17 +63,11 @@ signupForm.addEventListener('submit', (e) => {
     console.log(email, rol);
     emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@((amigo.edu.co))/;
     if (emailRegex.test(email)) {
-        registrarUsuario(email, password, rol);
+        registrarUsuario(email, password, name, rol);
         $('#signupModal').modal('hide');
         console.log('signup');
         console.log('amigo.edu.co');
         console.log(rol);
-        if (rol == "Pasajero"){
-            window.location.href = './traveler.html';
-        }
-        else{
-            window.location.href = './driver.html';
-        }
       } else {
         console.log('incorrecto');
       }
