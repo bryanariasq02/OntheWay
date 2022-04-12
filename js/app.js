@@ -14,8 +14,21 @@ const loginCheck = user => {
     }
 }
 
+const saveUser = (infoUser) =>{
+    fs.collection("usuarios").add({
+        infoUser
+    })
+    .then(function(docRef){
+        MENSAJE_OK();
+        console.log("Documento escrito en el id: ",docRef.id);
+    })
+    .catch(function(error){
+        MENSAJE_ERROR();
+        console.log("Error añadiendo el documento",error);
+    })
+}
 
-async function registrarUsuario(email, password, name, rol) {
+async function registrarUsuario(email, password, name, lastName, cel, rol) {
     const infoUsuario = await auth.createUserWithEmailAndPassword(
       email,
       password
@@ -30,8 +43,15 @@ async function registrarUsuario(email, password, name, rol) {
         });
         //console.log(infoUsuario.user);
         console.log(usuarioFirebase);
-        console.log("INFORMACIONNNNNNNNNNN")
-        
+        const unicoid = usuarioFirebase.user.uid;
+        const usuario = {
+            unicoid,
+            name,
+            lastName,
+            cel,
+            rol
+        }
+        saveUser(usuario)
     });
     
     function verificar() {
@@ -43,8 +63,6 @@ async function registrarUsuario(email, password, name, rol) {
         });
     };
     verificar();
-    //const docuRef = fs.doc(fs, 'usuarios/${infoUsuario.user.uid}');
-    //fs.setDoc(docuRef, {correo: email, rol: rol});
 }
 //SignUp
 const signupForm = document.querySelector('#signup-form');
@@ -53,6 +71,7 @@ signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.querySelector('#signup-name').value;
     const lastName = document.querySelector('#signup-lastName').value;
+    const cel = document.querySelector('#signup-numCel').value;
     const email = document.querySelector('#signup-email').value;
     const password = document.querySelector('#signup-password').value;
     const check = document.getElementById('toggle');
@@ -63,11 +82,14 @@ signupForm.addEventListener('submit', (e) => {
     console.log(email, rol);
     emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@((amigo.edu.co))/;
     if (emailRegex.test(email)) {
-        registrarUsuario(email, password, name, rol);
+        registrarUsuario(email, password, name, lastName, cel, rol);
         $('#signupModal').modal('hide');
         console.log('signup');
         console.log('amigo.edu.co');
         console.log(rol);
+        auth.signOut().then(() => {
+            console.log('sign Out');
+        })
       } else {
         console.log('incorrecto');
       }
@@ -94,40 +116,6 @@ signinForm.addEventListener('submit', e =>{
             console.log('signIn');
         }) 
 });
-
-//SignIn With GOOGLE
-
-const googlebutton = document.querySelector('#googleLogin');
-
-// googlebutton.addEventListener('click', e =>{
-//     e.preventDefault();
-
-//     const provider = new firebase.auth.GoogleAuthProvider();
-//     auth.signInWithPopup(provider)
-//         .then(resul => {
-//             console.log("entrooo")
-//             window.location.href = './traveler.html'
-
-//         })
-//         .catch(err => {
-//             console.log(err)
-//         })
-
-    // const email = document.querySelector('#login-email').value
-    // const password = document.querySelector('#login-password').value
-    console.log("googleeee")
-    // auth
-    //     .signInWithEmailAndPassword(email, password)
-    //     .then(userCredential => {
-    //         signupForm.reset();
-    //         const user = userCredential.user;
-    //         console.log(user);
-
-    //         //cerrar el modal
-    //         $('#signupModal').modal('hide');
-    //         console.log('signIn');
-    //     }) 
-//});
 
 //LOGOUT
 const logout = document.querySelector('#logout');
@@ -185,3 +173,21 @@ auth.onAuthStateChanged(user => {
         loginCheck(user)
     }
 })
+
+//MENSAJES DE ALERTA BASE DE DATOS
+
+const MENSAJE_OK =()=>{
+    Swal.fire(
+        'Datos guardados correctamente!',
+        'Verifica la cuenta en tu correo electronico para Iniciar sesión',
+        'success'
+      )
+}
+
+const MENSAJE_ERROR =()=>{
+    Swal.fire(
+        'Oops!',
+        'Los datos no fueron guardados',
+        'error'
+      )
+}
