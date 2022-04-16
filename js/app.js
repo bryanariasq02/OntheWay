@@ -3,6 +3,15 @@ console.log('hello');
 const dentrolinks = document.querySelectorAll('.dentro')
 const fueralinks = document.querySelectorAll('.fuera')
 
+
+//Cerrar sesion
+function cerrar(){
+    auth.signOut().then(() => {
+        console.log('sign Out');
+    })
+}
+
+
 //login Check
 const loginCheck = user => {
     if(user){
@@ -19,7 +28,6 @@ const saveUser = (infoUser) =>{
         infoUser
     })
     .then(function(docRef){
-        MENSAJE_OK();
         console.log("Documento escrito en el id: ",docRef.id);
     })
     .catch(function(error){
@@ -63,6 +71,7 @@ async function registrarUsuario(email, password, name, lastName, cel, rol) {
         });
     };
     verificar();
+    cerrar();
 }
 //SignUp
 const signupForm = document.querySelector('#signup-form');
@@ -87,9 +96,11 @@ signupForm.addEventListener('submit', (e) => {
         console.log('signup');
         console.log('amigo.edu.co');
         console.log(rol);
-        auth.signOut().then(() => {
-            console.log('sign Out');
-        })
+        cerrar();
+        MENSAJE_OK();
+        setTimeout(function(){
+            location.reload();
+        },5000);        
       } else {
         console.log('incorrecto');
       }
