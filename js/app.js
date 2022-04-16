@@ -24,10 +24,11 @@ const loginCheck = user => {
 }
 
 const saveUser = (infoUser) =>{
-    fs.collection("usuarios").add({
+    fs.collection("usuariosNuevos").add({
         infoUser
     })
     .then(function(docRef){
+        MENSAJE_OK();
         console.log("Documento escrito en el id: ",docRef.id);
     })
     .catch(function(error){
@@ -66,12 +67,14 @@ async function registrarUsuario(email, password, name, lastName, cel, rol) {
         var user = firebase.auth().currentUser;
         user.sendEmailVerification().then(function () {
             console.log("// Email sent.");
+            cerrar()
+            console.log("------------USUARIO CERRADO")
+            MENSAJE_OK();
         }).catch(function (error) {
             // An error happened.
         });
     };
     verificar();
-    cerrar();
 }
 //SignUp
 const signupForm = document.querySelector('#signup-form');
@@ -95,18 +98,43 @@ signupForm.addEventListener('submit', (e) => {
         $('#signupModal').modal('hide');
         console.log('signup');
         console.log('amigo.edu.co');
-        console.log(rol);
-        cerrar();
-        MENSAJE_OK();
-        setTimeout(function(){
-            location.reload();
-        },5000);        
+        console.log(rol);       
       } else {
         console.log('incorrecto');
       }
 });
 
 //SignIn
+
+function checkRol(){
+
+    const ROL = data =>{
+        if(data.length) {
+            var userNew = firebase.auth().currentUser;
+            console.log(userNew);
+            uid = userNew.uid;
+            data.forEach(doc => {
+                const rolUsuario = doc.data()
+                console.log(rolUsuario)
+                if(uid == rolUsuario.infoUser.unicoid){
+                    verificado = rolUsuario.infoUser.rol;
+                }
+            });
+        }
+        if(verificado == "Conductor"){
+            window.location.href = './driver.html'
+        }else{
+            window.location.href = './traveler.html'
+        }
+    }
+
+    fs.collection('usuariosNuevos')
+                .get()
+                .then((snapshot) => {
+                   ROL(snapshot.docs)
+                })
+}
+
 
 const signinForm = document.querySelector('#login-form');
 
@@ -121,7 +149,8 @@ signinForm.addEventListener('submit', e =>{
             signupForm.reset();
             const user = userCredential.user;
             console.log(user);
-            window.location.href = './traveler.html'
+            //Verificar rol para redigir a pagina
+            checkRol();
             //cerrar el modal
             $('#signupModal').modal('hide');
             console.log('signIn');
@@ -189,7 +218,7 @@ auth.onAuthStateChanged(user => {
 
 const MENSAJE_OK =()=>{
     Swal.fire(
-        'Datos guardados correctamente!',
+        'Registrado exitosamente!',
         'Verifica la cuenta en tu correo electronico para Iniciar sesión',
         'success'
       )
