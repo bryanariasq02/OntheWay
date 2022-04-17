@@ -3,15 +3,6 @@ console.log('hello');
 const dentrolinks = document.querySelectorAll('.dentro')
 const fueralinks = document.querySelectorAll('.fuera')
 
-
-//Cerrar sesion
-function cerrar(){
-    auth.signOut().then(() => {
-        console.log('sign Out');
-    })
-}
-
-
 //login Check
 const loginCheck = user => {
     if(user){
@@ -21,6 +12,23 @@ const loginCheck = user => {
         dentrolinks.forEach(link => link.style.display = 'none');
         fueralinks.forEach(link => link.style.display = 'block');
     }
+}
+
+
+//Cerrar sesion
+function cerrar(){
+    auth.signOut().then(() => {
+        console.log('sign Out');
+        console.log("------------USUARIO CERRADO");
+    });
+
+    auth.onAuthStateChanged(user => {
+        if(user){
+            loginCheck(user);
+        }else{
+            loginCheck(user);
+        }
+    })
 }
 
 const saveUser = (infoUser) =>{
@@ -67,9 +75,8 @@ async function registrarUsuario(email, password, name, lastName, cel, rol) {
         var user = firebase.auth().currentUser;
         user.sendEmailVerification().then(function () {
             console.log("// Email sent.");
-            cerrar()
-            console.log("------------USUARIO CERRADO")
-            MENSAJE_OK();
+            //cerrar()
+            //MENSAJE_OK();
         }).catch(function (error) {
             // An error happened.
         });
@@ -98,7 +105,8 @@ signupForm.addEventListener('submit', (e) => {
         $('#signupModal').modal('hide');
         console.log('signup');
         console.log('amigo.edu.co');
-        console.log(rol);       
+        console.log(rol); 
+        cerrar();      
       } else {
         console.log('incorrecto');
       }
