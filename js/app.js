@@ -31,6 +31,19 @@ function cerrar(){
     })
 }
 
+//verificaremail
+function VERIFICAREMAIL(){
+    var userNew = firebase.auth().currentUser;
+    const emailVerified = userNew.emailVerified;
+    console.log(emailVerified);
+    if(emailVerified == false){
+        auth.signOut();
+        MENSAJE_email();
+    }else{
+        checkRol();
+    }  
+}
+
 const saveUser = (infoUser) =>{
     fs.collection("usuariosNuevos").add({
         infoUser
@@ -69,7 +82,7 @@ async function registrarUsuario(email, password, name, lastName, cel, rol) {
             rol
         }
         saveUser(usuario)
-    });
+    })
     
     function verificar() {
         var user = firebase.auth().currentUser;
@@ -105,13 +118,12 @@ signupForm.addEventListener('submit', (e) => {
         $('#signupModal').modal('hide');
         console.log('signup');
         console.log('amigo.edu.co');
-        console.log(rol); 
-        cerrar();      
+        console.log(rol);  
       } else {
         console.log('incorrecto');
       }
 });
-
+ 
 //SignIn
 
 function checkRol(){
@@ -157,12 +169,13 @@ signinForm.addEventListener('submit', e =>{
             signupForm.reset();
             const user = userCredential.user;
             console.log(user);
-            //Verificar rol para redigir a pagina
-            checkRol();
             //cerrar el modal
             $('#signupModal').modal('hide');
             console.log('signIn');
-        }) 
+        })
+        .then(function(){
+            VERIFICAREMAIL();
+        })
 });
 
 //LOGOUT
@@ -206,9 +219,10 @@ const setupViajes = data =>{
 //Listar datos para usuarios autenticados
 
 auth.onAuthStateChanged(user => {
-    if(user){
-        loginCheck(user)
-        console.log("iniciado")
+    if(user.emailVerified == true){
+        loginCheck(user);
+        console.log(user);
+        console.log("iniciado");
         fs.collection('viajesDisponibles')
             .get()
             .then((snapshot) => {
@@ -236,6 +250,14 @@ const MENSAJE_ERROR =()=>{
     Swal.fire(
         'Oops!',
         'Los datos no fueron guardados',
+        'error'
+      )
+}
+
+const MENSAJE_email =()=>{
+    Swal.fire(
+        'Oops!',
+        'Debes verificar la cuenta en el correo electronico',
         'error'
       )
 }
