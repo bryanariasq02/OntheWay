@@ -254,7 +254,7 @@ const setupViajes = data =>{
 //Listar datos para usuarios autenticados
 
 auth.onAuthStateChanged(user => {
-    if(user){
+    if(user.emailVerified == true){
         loginCheck(user);
         console.log(user);
         console.log("iniciado");
