@@ -36,6 +36,9 @@
 
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet">
+
+   <!-- Alertas de base de datos -->
+   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -125,25 +128,44 @@
     </div>
   </div>
 
-  <!-- Modals (Ventana Emergente para SignUp)-->
+   <!-- Modals (Ventana Emergente para SignUp)-->
 
-  <div class="modal" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Registrate</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Regístrate</h5>
         </div>
         <div class="modal-body">
           <form id="signup-form" action="">
             <div class="form-group mb-3">
-              <input type="text" id="signup-email" class="form-control" placeholder="Email" required autofocus>
+              <input type="text" id="signup-name" class="form-control" placeholder="Nombre" required autofocus>
             </div>
             <div class="form-group mb-3">
-              <input type="password" id="signup-password" class="form-control" placeholder="Password" required>
+              <input type="text" id="signup-lastName" class="form-control" placeholder="Apellidos" required autofocus>
+            </div>
+            <div class="form-group mb-3">
+              <input type="tel" id="signup-numCel"  pattern="[3][0-9]{9}" title="Número celular no valido" class="form-control" placeholder="Número celular" required autofocus>
+            </div>
+            <div class="form-group mb-3">
+              <input type="text" id="signup-email" class="form-control" placeholder="Correo institucional" required autofocus>
+            </div>
+            <div class="form-group mb-3">
+              <input type="password" id="signup-password" class="form-control" placeholder="Contraseña" required>
+            </div>
+            <div class="row mb-3">
+              <div class="col"></div>
+              <div class="col" style="text-align: center; justify-content: center;align-items: center; display: flex;  background-color: rgb(39, 40, 56); border-radius: 10%;"><h6 style="color:#ccff00;">Pasajero</h6></div>
+              <div class="col">
+                <input type="checkbox" id="toggle" value="pasajero; otro" class="form-control offscreen"/>
+                <label for="toggle" class="switch"></label>
+              </div>
+              <div class="col" style="text-align: center; justify-content: center;align-items: center; display: flex; background-color: #ccff00; border-radius: 10%;"><h6 style="color:black;">Conductor</h6></div>
+              <div class="col"></div>
             </div>
             <div class="d-grid gap-2 d-md-block">
               <button type="submit" class="btn btn-outline-primary btn-block" style="color: black; background-color: #ccff00; border: black;">Registrarse</button>
-              <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Cerrar</button>
             </div>
           </form>
         </div>
@@ -169,7 +191,8 @@
             </div>
             <div class="d-grid gap-2 d-md-block">
               <button type="submit" class="btn btn-outline-primary btn-block" style="color: black; background-color: #ccff00; border: black;">Login</button>
-              <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
+
+              <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Cerrar</button>
             </div>
           </form>
         </div>

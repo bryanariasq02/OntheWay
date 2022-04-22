@@ -1,5 +1,39 @@
 console.log('hello');
 
+//MENSAJES DE ALERTA
+
+const MENSAJE_OK =()=>{
+    Swal.fire(
+        'Registrado exitosamente!',
+        'Verifica la cuenta en tu correo electronico para Iniciar sesión',
+        'success'
+      )
+}
+
+const MENSAJE_ERROR =()=>{
+    Swal.fire(
+        'Oops!',
+        'Los datos no fueron guardados',
+        'error'
+      )
+}
+
+const MENSAJE_email =()=>{
+    Swal.fire(
+        'Oops!',
+        'Debes verificar la cuenta en el correo electronico',
+        'error'
+      )
+}
+
+const MENSAJE_INICIAR_SESION =()=>{
+    Swal.fire(
+        'Oops!',
+        'Debes iniciar sesion primero',
+        'error'
+      )
+}
+
 const dentrolinks = document.querySelectorAll('.dentro')
 const fueralinks = document.querySelectorAll('.fuera')
 
@@ -170,7 +204,7 @@ signinForm.addEventListener('submit', e =>{
             const user = userCredential.user;
             console.log(user);
             //cerrar el modal
-            $('#signupModal').modal('hide');
+            $('#signinModal').modal('hide');
             console.log('signIn');
         })
         .then(function(){
@@ -203,8 +237,8 @@ const setupViajes = data =>{
             console.log(viajes)
             const li = `
             <li class="list-group-item list-group-item-action">
-                <h5>${viajes.origen}</h5>
-                <p>${viajes.destino}</p>
+                <h5>${viajes.datosViaje.origen}</h5>
+                <p>${viajes.datosViaje.destino}</p>
             </li>            
             `;
             html += li;
@@ -215,16 +249,17 @@ const setupViajes = data =>{
     }
 }
 
+
 //Eventos
 //Listar datos para usuarios autenticados
 
 auth.onAuthStateChanged(user => {
-    if(user.emailVerified == true){
+    if(user){
         loginCheck(user);
         console.log(user);
         console.log("iniciado");
-        fs.collection('viajesDisponibles')
-            .get()
+        fs.collection('Viajes')
+        .get()
             .then((snapshot) => {
                 console.log(snapshot.docs)
                 setupViajes(snapshot.docs)
@@ -234,30 +269,48 @@ auth.onAuthStateChanged(user => {
         console.log("NADA")
         loginCheck(user)
     }
+})   
+
+//Guardar datos de viaje
+        
+const guardarViaje = document.querySelector('#form_register');
+        
+guardarViaje.addEventListener('submit', e =>{
+    e.preventDefault();
+    const origen = document.querySelector('#start').value
+    const destino = document.querySelector('#destiny').value
+    const numerotel = document.querySelector('#number').value
+    const cupos = document.querySelector('#cupos').value
+    const descripcion = document.querySelector('#descriptions').value
+    const dias = document.querySelector('#dias').value
+    const horarios = document.querySelector('#horarios').value
+            
+    console.log(origen, destino, numerotel, descripcion, dias, horarios)
+    const datosViaje = {
+        origen,
+        destino,
+        numerotel,
+        cupos,
+        descripcion,
+        dias,
+        horarios
+        }
+    auth.onAuthStateChanged(user => {
+        if(user){
+            fs.collection("Viajes").add({
+                datosViaje
+            })
+            .then(function(docRef){
+                MENSAJE_OK();
+                console.log("Documento escrito en el id: ",docRef.id);
+            })
+            .catch(function(error){
+                MENSAJE_ERROR();
+                console.log("Error añadiendo el documento",error);
+            })
+        }else{
+            MENSAJE_INICIAR_SESION();
+            $('#signinModal').modal();
+        }
+    })         
 })
-
-//MENSAJES DE ALERTA BASE DE DATOS
-
-const MENSAJE_OK =()=>{
-    Swal.fire(
-        'Registrado exitosamente!',
-        'Verifica la cuenta en tu correo electronico para Iniciar sesión',
-        'success'
-      )
-}
-
-const MENSAJE_ERROR =()=>{
-    Swal.fire(
-        'Oops!',
-        'Los datos no fueron guardados',
-        'error'
-      )
-}
-
-const MENSAJE_email =()=>{
-    Swal.fire(
-        'Oops!',
-        'Debes verificar la cuenta en el correo electronico',
-        'error'
-      )
-}
