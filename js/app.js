@@ -10,6 +10,14 @@ const MENSAJE_OK =()=>{
       )
 }
 
+const MENSAJE_OK_VIAJE =()=>{
+    Swal.fire(
+        'Registrado exitosamente!',
+        'El viaje ha sido registrado con exito',
+        'success'
+      )
+}
+
 const MENSAJE_ERROR =()=>{
     Swal.fire(
         'Oops!',
@@ -237,8 +245,14 @@ const setupViajes = data =>{
             console.log(viajes)
             const li = `
             <li class="list-group-item list-group-item-action">
-                <h5>${viajes.datosViaje.origen}</h5>
-                <p>${viajes.datosViaje.destino}</p>
+                <h5>Origen: ${viajes.datosViaje.origen}</h5>
+                <p>Destino: ${viajes.datosViaje.destino}</p>
+                <p>Día: ${viajes.datosViaje.dias}</p>
+                <p>Horario: ${viajes.datosViaje.horarios}</p>
+                <p>Cupos: ${viajes.datosViaje.cupos}</p>
+                <a href="https://wa.me/${viajes.datosViaje.numerotel}/?text=tu%20texto%20personalizado" target="_blank">
+                <img src="img/wpp.png" width="50" height="50">
+                </a>
             </li>            
             `;
             html += li;
@@ -301,7 +315,7 @@ guardarViaje.addEventListener('submit', e =>{
                 datosViaje
             })
             .then(function(docRef){
-                MENSAJE_OK();
+                MENSAJE_OK_VIAJE();
                 console.log("Documento escrito en el id: ",docRef.id);
             })
             .catch(function(error){
