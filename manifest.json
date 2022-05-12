@@ -1,0 +1,16 @@
+{
+    "name" : "OnTheWay",
+    "short_name" : "OnTheWay",
+    "description" : "Comparte caminos",
+    "start_url" : "./",
+    "lang" : "English",
+    "display" : "standalone",
+    "theme_color": "red",
+    "background_color": "blue",
+    "orientation" : "portrait",
+    "icons": [ {
+    "src": "img/Ubi.png",
+    "sizes": "192x192",
+    "type": "image/png"
+    }]
+}

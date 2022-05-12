@@ -250,7 +250,7 @@ const setupViajes = data =>{
                 <p>Día: ${viajes.datosViaje.dias}</p>
                 <p>Horario: ${viajes.datosViaje.horarios}</p>
                 <p>Cupos: ${viajes.datosViaje.cupos}</p>
-                <a href="https://wa.me/${viajes.datosViaje.numerotel}/?text=tu%20texto%20personalizado" target="_blank">
+                <a href="https://wa.me/${viajes.datosViaje.numerotel}/?text=Hola!!%20Encontré%20esta%20ruta%20en%20OnTheWay" target="_blank">
                 <img src="img/wpp.png" width="50" height="50">
                 </a>
             </li>            
@@ -259,7 +259,7 @@ const setupViajes = data =>{
         });
         listaViajes.innerHTML = html;
     }else{
-        listaViajes.innerHTML = `<p class="text-center">Inicia sesion para ver viajes disponibles</p>`
+        listaViajes.innerHTML = ` <h2 class="display-5">Para ver las solicitudes disponibles inicia sesión</h2>`
     }
 }
 
@@ -268,16 +268,18 @@ const setupViajes = data =>{
 //Listar datos para usuarios autenticados
 
 auth.onAuthStateChanged(user => {
-    if(user.emailVerified == true){
-        loginCheck(user);
-        console.log(user);
-        console.log("iniciado");
-        fs.collection('Viajes')
-        .get()
-            .then((snapshot) => {
-                console.log(snapshot.docs)
-                setupViajes(snapshot.docs)
-            })
+    if(user){
+        if(user.emailVerified == true){
+            loginCheck(user);
+            console.log(user);
+            console.log("iniciado");
+            fs.collection('Viajes')
+            .get()
+                .then((snapshot) => {
+                    console.log(snapshot.docs)
+                    setupViajes(snapshot.docs)
+                })
+        }
     }else{
         setupViajes([])
         console.log("NADA")
