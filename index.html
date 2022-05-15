@@ -224,6 +224,11 @@
       </div>
     </div>
   </footer>
+  <script>
+    if( "serviceWorker" in navigator){
+      navigator.serviceWorker.register("sw.js");
+    }
+  </script>
 
   <script type="text/javascript" src="js/jquery.slim.min.js"></script>
   <script type="text/javascript" src="js/tether.min.js"></script>
