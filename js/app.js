@@ -264,11 +264,23 @@ const setupViajes = data =>{
 }
 
 
+// const setupInicio = data =>{
+//     if(data == true) {
+//         inicio.innerHTML = `<a class="btn btn-outline-secondary" href="" data-toggle="modal" data-target="#signinModal">Pasajero</a>
+//         <a class="btn btn-outline-secondary" href="" data-toggle="modal" data-target="#signupModal">Conductor</a>`;
+//     }else{
+//         inicio.innerHTML = `<a class="btn btn-outline-secondary" href="" data-toggle="modal" data-target="#signinModal">Iniciar sesión</a>`
+//     }
+// }
+
 //Eventos
 //Listar datos para usuarios autenticados
 
 auth.onAuthStateChanged(user => {
+    const inicio = document.querySelector('.inicio')
+    console.log("Mirando AUTH-----")
     if(user){
+        console.log("Mirando USERRRR")
         if(user.emailVerified == true){
             loginCheck(user);
             console.log(user);
@@ -279,10 +291,14 @@ auth.onAuthStateChanged(user => {
                     console.log(snapshot.docs)
                     setupViajes(snapshot.docs)
                 })
+                inicio.innerHTML = `<a class="btn btn-outline-secondary" href="./traveler.html" data-toggle="" data-target="">Pasajero</a>
+                         <a class="btn btn-outline-secondary" href="./driver.html" data-toggle="" data-target="">Conductor</a>`;
         }
     }else{
-        setupViajes([])
         console.log("NADA")
+        inicio.innerHTML = `<a class="btn btn-outline-secondary" href="" data-toggle="modal" data-target="#signinModal">Iniciar sesión</a>
+        <a class="btn btn-outline-secondary" href="" data-toggle="modal" data-target="#signupModal">Registrarse</a>`;
+        setupViajes([])
         loginCheck(user)
     }
 })   
