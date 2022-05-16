@@ -125,11 +125,20 @@
                     <br>
                       <textarea class="form-control" placeholder="¿Puntos importantes por tu camino?" id="descriptions" style="height: 100px"></textarea>
                     <br>
-                    <input type="text" class="form-control" id="dias" placeholder="¿Que dias planeas hacer tu trayecto?">
+                    <label for="days">¿Que dias planeas hacer tu viaje?</label>
+                    <select name="days" id="days" class="form-control">
+                      <option value="lunes">Lunes</option>
+                      <option value="martes">Martes</option>
+                      <option value="miercoles">Miercoles</option>
+                      <option value="jueves">Jueves</option>
+                      <option value="viernes">Viernes</option>
+                      <option value="sabado">Sabado</option>
+                    </select>
                     <br>
+                    <label for="days">¿En que horario sera tu viaje?</label>
                     <input type="time" class="form-control" id="horarios" placeholder="¿En que horario es tu viaje?">
                     <br>
-                  <button id="registrarviaje" type="submit" class="btn btn-primary btn-lg" style="background-color: #ccff00;">Registrar tu viaje</button>
+                  <button id="registrarviaje" type="submit" class="btn btn-primary btn-lg" style="background-color: #ccff00;">Registra tu viaje</button>
                     <br>
                     <br>
                 </div>
