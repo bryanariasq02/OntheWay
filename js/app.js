@@ -278,9 +278,7 @@ const setupViajes = data =>{
 
 auth.onAuthStateChanged(user => {
     const inicio = document.querySelector('.inicio')
-    console.log("Mirando AUTH-----")
     if(user){
-        console.log("Mirando USERRRR")
         if(user.emailVerified == true){
             loginCheck(user);
             console.log(user);
@@ -296,9 +294,9 @@ auth.onAuthStateChanged(user => {
         }
     }else{
         console.log("NADA")
+        setupViajes([])
         inicio.innerHTML = `<a class="btn btn-outline-secondary" href="" data-toggle="modal" data-target="#signinModal">Iniciar sesión</a>
         <a class="btn btn-outline-secondary" href="" data-toggle="modal" data-target="#signupModal">Registrarse</a>`;
-        setupViajes([])
         loginCheck(user)
     }
 })   
