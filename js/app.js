@@ -18,6 +18,22 @@ const MENSAJE_OK_VIAJE =()=>{
       )
 }
 
+const MENSAJE_CORREO_INCORRECTO =()=>{
+    Swal.fire(
+        'Oops!',
+        'El correo que ingresaste no pertenece a @amigo.edu.co',
+        'error'
+      )
+}
+
+const MENSAJE_CONTRASEÑA =()=>{
+    Swal.fire(
+        'Oops!',
+        'La contraseña es demasiado corta',
+        'error'
+      )
+}
+
 const MENSAJE_ERROR =()=>{
     Swal.fire(
         'Oops!',
@@ -124,6 +140,8 @@ async function registrarUsuario(email, password, name, lastName, cel, rol) {
             rol
         }
         saveUser(usuario)
+    }).catch(function(error){
+        MENSAJE_CONTRASEÑA();
     })
     
     function verificar() {
@@ -163,6 +181,7 @@ signupForm.addEventListener('submit', (e) => {
         console.log(rol);  
       } else {
         console.log('incorrecto');
+        MENSAJE_CORREO_INCORRECTO();
       }
 });
  
