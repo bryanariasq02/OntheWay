@@ -41,6 +41,7 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="img/Ubi.png">
+
 </head>
 
 <body class="bg-light">
@@ -201,6 +202,7 @@
           <h5 class="modal-title" id="exampleModalLabel">Iniciar sesión</h5>
         </div>
         <div class="modal-body">
+          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
           <form id="login-form" action="">
             <div class="form-group mb-3">
               <input type="text" id="login-email" class="form-control" placeholder="Email" autofocus required>
@@ -209,9 +211,30 @@
               <input type="password" id="login-password" class="form-control" placeholder="Password" required>
             </div>
             <div class="d-grid gap-2 d-md-block">
+              <div class="g-recaptcha" data-sitekey="6Lecwt8iAAAAAF3iDds9fTwoLXedB4HB6tA7gMpH"></div>
               <button type="submit" class="btn btn-outline-primary btn-block" style="color: black; background-color: #ccff00; border: black;">Login</button>
-
               <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Cerrar</button>
+              <script>
+  
+                function preventFormSubmit() {
+                      var forms = document.querySelectorAll('form');
+                      for (var i = 0; i < forms.length; i++) {
+                        forms[i].addEventListener('submit', function(event) {
+                          event.preventDefault();
+                        });
+                      }
+                    }
+                    window.addEventListener('load', preventFormSubmit);
+                
+                
+                  function handleFormSubmit(formObject) {
+                      google.script.run.withSuccessHandler(updateUrl).processForm(formObject);
+                    }
+                    function updateUrl(response) {
+                      var div = document.getElementById('response');
+                      div.innerHTML = response;
+                    }
+                </script>
             </div>
           </form>
         </div>
